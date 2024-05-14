@@ -20,7 +20,7 @@ func main() {
 	}
 	fmt.Println("helloooo")
 
-        workers := 100
+        workers := 10000
 	d, err := New("https://console-openshift-console.apps.sandbox-m2.ll9k.p1.openshiftapps.com", workers)
 	if err != nil {
 		panic(err)

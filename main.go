@@ -27,7 +27,8 @@ func main() {
 	d.Run()
 	time.Sleep(time.Second)
 	d.Stop()
-	fmt.Println("DDoS attack stopped")
+	successRequest, amountRequests := d.Result()
+	fmt.Println("DDoS attack stopped:", successRequest, amountRequests)
 	
 	http.HandleFunc("/", HelloServer)
 	http.ListenAndServe(fmt.Sprintf("0.0.0.0:%s", port), nil)

